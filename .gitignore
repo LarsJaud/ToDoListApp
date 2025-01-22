@@ -1,1 +1,23 @@
+# Xcode-Projektdaten
 *.xcuserstate
+*.xcworkspace
+xcuserdata/
+DerivedData/
+
+# Logs
+*.log
+
+# Build-Ordner
+build/
+*.ipa
+
+# Swift Package Manager
+.swiftpm
+.build/
+
+# CocoaPods
+Pods/
+
+# Andere Dateien, die du nicht tracken möchtest
+.DS_Store
+*.lock
