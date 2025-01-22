@@ -27,15 +27,15 @@ struct ToDoDetailView: View {
                     .textFieldStyle(.roundedBorder)
                     .padding()
                     .onAppear {
-                        // Wenn wir ein bestehendes To-Do bearbeiten
+                        // edit an existing to-do
                         if let editing = editingToDo {
-                            // Nur setzen, wenn die Felder noch leer sind
+                            // only set if the fields are still empty
                             if title.isEmpty && description.isEmpty {
                                 title = editing.title
                                 description = editing.description
                             }
                         } else {
-                            // Neues To-Do -> Titel aus initialTitle
+                            // new to-do -> title from initialTitle
                             title = initialTitle
                         }
                     }
@@ -53,21 +53,21 @@ struct ToDoDetailView: View {
                 Button {
                     guard !title.isEmpty else { return }
 
-                    // Prüfen, ob bereits ein To-Do bearbeitet wird
+                    // check whether a to-do is already being processed
                     if let index = todos.firstIndex(where: { $0.id == editingToDo?.id }) {
-                        // Vorhandenes To-Do aktualisieren
+                        // update existing to-do
                         todos[index].title = title
                         todos[index].description = description
                         onSave()
                         dismiss()
                     }
                     else if !todos.contains(where: { $0.title == title && $0.description == description }) {
-                        // Neues To-Do anlegen
+                        // create new To-do
                         todos.append(ToDo(title: title, description: description))
                         onSave()
                         dismiss()
                     } else {
-                        // Doppeltes To-Do
+                        // to-do already exists
                         alertMessage = "To-Do already exists!"
                         showAlert = true
                     }
@@ -96,7 +96,7 @@ struct ToDoDetailView_Previews: PreviewProvider {
         ToDoDetailView(
             todos: .constant([]),
             initialTitle: .constant(""),
-            editingToDo: .constant(ToDo(title: "Example", description: "This is a test.")),
+            editingToDo: .constant(ToDo(title: "", description: "")),
             onSave: {}
         )
     }

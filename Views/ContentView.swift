@@ -11,7 +11,7 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             VStack {
-                // Liste aller To-Dos
+                // list of all to-dos
                 List {
                     ForEach(todos) { todo in
                         VStack(alignment: .leading) {
@@ -49,7 +49,7 @@ struct ContentView: View {
                             .padding(.top, 40)
                     }
                 }
-                // Dark-Mode-Umschalter
+                // Dark-Mode-toggle
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button {
                         isDarkMode.toggle()
@@ -59,7 +59,7 @@ struct ContentView: View {
                     }
                 }
                 
-                // Button zum neuen To-Do
+                // Button for the new to-do
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
                         showDetailView.toggle()
@@ -71,7 +71,7 @@ struct ContentView: View {
             }
             .preferredColorScheme(isDarkMode ? .dark : .light)
             .sheet(isPresented: $showDetailView) {
-                // Detail-/Bearbeitungs-View
+                // detail/edit view
                 ToDoDetailView(
                     todos: $todos,
                     initialTitle: .constant(selectedTodo?.title ?? ""),
@@ -81,13 +81,13 @@ struct ContentView: View {
             }
             .onAppear(perform: loadToDos)
         }
-        // Zurücksetzen des selektierten To-Dos nach Sheet-Schließen
+        // reset the selected to-do after closing the sheet
         .onChange(of: showDetailView) { oldValue, newValue in
             if !newValue { selectedTodo = nil }
         }
     }
 
-    /// Entfernt ein To-Do aus der Liste und speichert erneut
+    /// removes a to-do from the list and saves again
     private func delete(_ todo: ToDo) {
         if let index = todos.firstIndex(of: todo) {
             todos.remove(at: index)
@@ -95,13 +95,13 @@ struct ContentView: View {
         }
     }
 
-    /// Öffnet das Sheet, um ein bestehendes To-Do zu bearbeiten
+    /// open the sheet to edit an existing to-do
     private func edit(_ todo: ToDo) {
         selectedTodo = todo
         showDetailView = true
     }
 
-    /// Speichert die Liste der To-Dos in UserDefaults
+    /// save the list of to-dos from UserDefaults
     private func saveToDos() {
         do {
             let data = try JSONEncoder().encode(todos)
@@ -111,7 +111,7 @@ struct ContentView: View {
         }
     }
 
-    /// Lädt die Liste der To-Dos aus UserDefaults
+    /// loads the list of to-dos from UserDefaults
     private func loadToDos() {
         if let data = UserDefaults.standard.data(forKey: todosKey) {
             do {
