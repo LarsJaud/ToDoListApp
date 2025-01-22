@@ -12,7 +12,8 @@ struct ContentView: View {
     @State private var newTodo: String = ""
     @State private var isDarkMode: Bool = false
     @State private var showDetailView = false
-
+    private let todosKey = "com.larsjaud.todos"
+    
     var body: some View {
         NavigationView {
             VStack {
@@ -55,6 +56,7 @@ struct ContentView: View {
                             Button(role: .destructive) {
                                 if let index = todos.firstIndex(of: todo) {
                                     todos.remove(at: index)
+                                    saveToDos()
                                 }
                             } label: {
                                 Label("Delete", systemImage: "trash")
@@ -82,15 +84,37 @@ struct ContentView: View {
             }
             .preferredColorScheme(isDarkMode ? .dark : .light)
             .sheet(isPresented: $showDetailView) {
-                ToDoDetailView(todos: $todos, initialTitle: $newTodo)
+                ToDoDetailView(todos: $todos, initialTitle: $newTodo, onSave: saveToDos)
+            }
+            .onAppear{
+                loadToDos()
             }
         }
     }
+    
+    func saveToDos() {
+        print("saveToDos wurde aufgerufen")
+        do {
+            let encoded = try JSONEncoder().encode(todos)
+            print("Encodierte Daten: \(encoded)") // Rohdaten anzeigen
+            UserDefaults.standard.set(encoded, forKey: todosKey)
+            print("Daten erfolgreich gespeichert: \(todos)")
+        } catch {
+            print("Fehler beim Speichern der Daten: \(error.localizedDescription)")
+        }
+    }
 
-    private func addTodo() {
-        if !newTodo.isEmpty {
-            todos.append(ToDo(title: newTodo, description: ""))
-            newTodo = ""
+
+    func loadToDos() {
+        if let savedData = UserDefaults.standard.data(forKey: todosKey) {
+            do {
+                todos = try JSONDecoder().decode([ToDo].self, from: savedData)
+                print("Daten erfolgreich geladen: \(todos)")
+            } catch {
+                print("Fehler beim Laden der Daten: \(error.localizedDescription)")
+            }
+        } else {
+            print("Keine gespeicherten Daten gefunden")
         }
     }
 }

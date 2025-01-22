@@ -13,6 +13,10 @@ struct ToDoDetailView: View {
     @Binding var initialTitle: String
     @State private var title: String = ""
     @State private var description: String = ""
+    @State private var showAlert = false
+    @State private var alertMessage = ""
+    
+    var onSave: () -> Void
 
     var body: some View {
         NavigationView {
@@ -36,8 +40,14 @@ struct ToDoDetailView: View {
 
                 Button(action: {
                     if !title.isEmpty {
-                        todos.append(ToDo(title: title, description: description))
-                        dismiss()
+                        if !todos.contains(where: { $0.title == title && $0.description == description }) {
+                            todos.append(ToDo(title: title, description: description))
+                            onSave()
+                            dismiss()
+                        } else {
+                            alertMessage = "To-Do already exists!"
+                            showAlert = true
+                        }
                     }
                 }) {
                     Text("Add")
@@ -48,6 +58,13 @@ struct ToDoDetailView: View {
                         .cornerRadius(8)
                         .padding(.horizontal)
                 }
+                .alert(isPresented: $showAlert){
+                    Alert(
+                        title: Text("Fehler"),
+                        message: Text(alertMessage),
+                        dismissButton: .cancel(Text("OK"))
+                    )
+                }
             }
             .navigationTitle("New To-Do")
         }
@@ -56,7 +73,7 @@ struct ToDoDetailView: View {
 
 struct ToDoDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        ToDoDetailView(todos: .constant([]), initialTitle: .constant(""))
+        ToDoDetailView(todos: .constant([]), initialTitle: .constant(""), onSave: {})
     }
 }
 
