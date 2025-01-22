@@ -8,12 +8,13 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var todos: [String] = []
+    @State private var todos: [ToDo] = []
     @State private var newTodo: String = ""
     @State private var isDarkMode: Bool = false
-    
+    @State private var showDetailView = false
+
     var body: some View {
-        NavigationView{
+        NavigationView {
             VStack {
                 HStack(alignment: .center) {
                     TextField("new To-Do", text: $newTodo)
@@ -26,9 +27,9 @@ struct ContentView: View {
                         )
                         .frame(height: 44)
                         .padding(.leading, 16)
-                    
+
                     Button(action: {
-                        addTodo()
+                        showDetailView.toggle()
                     }) {
                         Image(systemName: "plus")
                             .padding()
@@ -37,26 +38,31 @@ struct ContentView: View {
                             .clipShape(Circle())
                             .font(.system(size: 22))
                     }
-                    .padding (.trailing, 16)
+                    .padding(.trailing, 16)
                 }
                 .frame(maxWidth: .infinity, alignment: .center)
-                List {
-                    ForEach(todos, id: \.self) { todo in
-                        Text(todo)
-                            .swipeActions(edge: .trailing, allowsFullSwipe: true) {
-                                Button(role: .destructive) {
-                                    if let index = todos.firstIndex(of: todo) {
-                                        deleteTodo(at: IndexSet(integer: index))
-                                    }
-                                } label: {
-                                    Label("Delete", systemImage: "trash")
-                                }
-                                .tint(.red)
-                            }
-                    }
-                    .onDelete(perform: deleteTodo)
-                }
 
+                List {
+                    ForEach(todos) { todo in
+                        VStack(alignment: .leading) {
+                            Text(todo.title)
+                                .font(.headline)
+                            Text(todo.description)
+                                .font(.subheadline)
+                                .foregroundColor(.gray)
+                        }
+                        .swipeActions(edge: .trailing, allowsFullSwipe: true) {
+                            Button(role: .destructive) {
+                                if let index = todos.firstIndex(of: todo) {
+                                    todos.remove(at: index)
+                                }
+                            } label: {
+                                Label("Delete", systemImage: "trash")
+                            }
+                            .tint(.red)
+                        }
+                    }
+                }
             }
             .toolbar {
                 ToolbarItem(placement: .principal) {
@@ -65,7 +71,7 @@ struct ContentView: View {
                         .bold()
                         .padding(.top, 20)
                 }
-                ToolbarItem(placement: .navigationBarTrailing){
+                ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
                         isDarkMode.toggle()
                     }) {
@@ -75,21 +81,24 @@ struct ContentView: View {
                 }
             }
             .preferredColorScheme(isDarkMode ? .dark : .light)
+            .sheet(isPresented: $showDetailView) {
+                ToDoDetailView(todos: $todos)
+            }
         }
     }
-    
+
     private func addTodo() {
         if !newTodo.isEmpty {
-            todos.append(newTodo)
+            todos.append(ToDo(title: newTodo, description: ""))
             newTodo = ""
         }
     }
-    
-    private func deleteTodo(at offsets: IndexSet){
-        todos.remove(atOffsets: offsets)
+}
+
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
     }
 }
 
-#Preview {
-    ContentView()
-}
+

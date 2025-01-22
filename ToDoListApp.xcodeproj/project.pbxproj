@@ -6,8 +6,17 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		CBCA359A2D40F37D00845FC2 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBCA35992D40F37D00845FC2 /* ContentView.swift */; };
+		CBCA35A92D4115BB00845FC2 /* ToDoDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBCA35A82D4115AC00845FC2 /* ToDoDetailView.swift */; };
+		CBCA35AA2D411DC100845FC2 /* ToDo.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBCA35A72D4113FE00845FC2 /* ToDo.swift */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		CBCA35942D40F37D00845FC2 /* ToDoListApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToDoListApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CBCA35992D40F37D00845FC2 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		CBCA35A72D4113FE00845FC2 /* ToDo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDo.swift; sourceTree = "<group>"; usesTabs = 0; };
+		CBCA35A82D4115AC00845FC2 /* ToDoDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoDetailView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -32,6 +41,8 @@
 		CBCA358B2D40F37D00845FC2 = {
 			isa = PBXGroup;
 			children = (
+				CBCA35A62D4113B700845FC2 /* Models */,
+				CBCA35A52D41137C00845FC2 /* Views */,
 				CBCA35962D40F37D00845FC2 /* ToDoListApp */,
 				CBCA35952D40F37D00845FC2 /* Products */,
 			);
@@ -43,6 +54,23 @@
 				CBCA35942D40F37D00845FC2 /* ToDoListApp.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		CBCA35A52D41137C00845FC2 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				CBCA35A82D4115AC00845FC2 /* ToDoDetailView.swift */,
+				CBCA35992D40F37D00845FC2 /* ContentView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		CBCA35A62D4113B700845FC2 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				CBCA35A72D4113FE00845FC2 /* ToDo.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -119,6 +147,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CBCA359A2D40F37D00845FC2 /* ContentView.swift in Sources */,
+				CBCA35A92D4115BB00845FC2 /* ToDoDetailView.swift in Sources */,
+				CBCA35AA2D411DC100845FC2 /* ToDo.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
