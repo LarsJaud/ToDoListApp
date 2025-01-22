@@ -10,15 +10,19 @@ import Foundation
 struct ToDoDetailView: View {
     @Environment(\.dismiss) var dismiss
     @Binding var todos: [ToDo]
+    @Binding var initialTitle: String
     @State private var title: String = ""
     @State private var description: String = ""
 
     var body: some View {
         NavigationView {
             VStack {
-                TextField("Titel eingeben", text: $title)
+                TextField("title", text: $title)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .padding()
+                    .onAppear{
+                        self.title = initialTitle
+                    }
 
                 TextEditor(text: $description)
                     .frame(height: 150)
@@ -32,6 +36,7 @@ struct ToDoDetailView: View {
 
                 Button(action: {
                     if !title.isEmpty {
+                        todos.append(ToDo(title: title, description: description))
                         todos.append(ToDo(title: title, description: description))
                         dismiss()
                     }
@@ -52,7 +57,7 @@ struct ToDoDetailView: View {
 
 struct ToDoDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        ToDoDetailView(todos: .constant([]))
+        ToDoDetailView(todos: .constant([]), initialTitle: .constant(""))
     }
 }
 

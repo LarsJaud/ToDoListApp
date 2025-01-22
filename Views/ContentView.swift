@@ -36,7 +36,7 @@ struct ContentView: View {
                             .background(isDarkMode ? Color.gray : Color.mint)
                             .foregroundColor(.white)
                             .clipShape(Circle())
-                            .font(.system(size: 22))
+                            .font(.system(size: 16))
                     }
                     .padding(.trailing, 16)
                 }
@@ -82,7 +82,7 @@ struct ContentView: View {
             }
             .preferredColorScheme(isDarkMode ? .dark : .light)
             .sheet(isPresented: $showDetailView) {
-                ToDoDetailView(todos: $todos)
+                ToDoDetailView(todos: $todos, initialTitle: $newTodo)
             }
         }
     }
