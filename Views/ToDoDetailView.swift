@@ -37,11 +37,10 @@ struct ToDoDetailView: View {
                 Button(action: {
                     if !title.isEmpty {
                         todos.append(ToDo(title: title, description: description))
-                        todos.append(ToDo(title: title, description: description))
                         dismiss()
                     }
                 }) {
-                    Text("Hinzufügen")
+                    Text("Add")
                         .frame(maxWidth: .infinity)
                         .padding()
                         .background(Color.mint)
@@ -50,7 +49,7 @@ struct ToDoDetailView: View {
                         .padding(.horizontal)
                 }
             }
-            .navigationTitle("Neues To-Do")
+            .navigationTitle("New To-Do")
         }
     }
 }
