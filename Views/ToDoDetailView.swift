@@ -5,14 +5,16 @@
 //  Created by Lars Jaud on 22.01.25.
 //
 import SwiftUI
-import Foundation
 
 struct ToDoDetailView: View {
-    @Environment(\.dismiss) var dismiss
+    @Environment(\.dismiss) private var dismiss
+    
     @Binding var todos: [ToDo]
     @Binding var initialTitle: String
-    @State private var title: String = ""
-    @State private var description: String = ""
+    @Binding var editingToDo: ToDo?
+    
+    @State private var title = ""
+    @State private var description = ""
     @State private var showAlert = false
     @State private var alertMessage = ""
     
@@ -21,11 +23,21 @@ struct ToDoDetailView: View {
     var body: some View {
         NavigationView {
             VStack {
-                TextField("title", text: $title)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                TextField("Title", text: $title)
+                    .textFieldStyle(.roundedBorder)
                     .padding()
-                    .onAppear{
-                        self.title = initialTitle
+                    .onAppear {
+                        // Wenn wir ein bestehendes To-Do bearbeiten
+                        if let editing = editingToDo {
+                            // Nur setzen, wenn die Felder noch leer sind
+                            if title.isEmpty && description.isEmpty {
+                                title = editing.title
+                                description = editing.description
+                            }
+                        } else {
+                            // Neues To-Do -> Titel aus initialTitle
+                            title = initialTitle
+                        }
                     }
 
                 TextEditor(text: $description)
@@ -38,18 +50,28 @@ struct ToDoDetailView: View {
 
                 Spacer()
 
-                Button(action: {
-                    if !title.isEmpty {
-                        if !todos.contains(where: { $0.title == title && $0.description == description }) {
-                            todos.append(ToDo(title: title, description: description))
-                            onSave()
-                            dismiss()
-                        } else {
-                            alertMessage = "To-Do already exists!"
-                            showAlert = true
-                        }
+                Button {
+                    guard !title.isEmpty else { return }
+
+                    // Prüfen, ob bereits ein To-Do bearbeitet wird
+                    if let index = todos.firstIndex(where: { $0.id == editingToDo?.id }) {
+                        // Vorhandenes To-Do aktualisieren
+                        todos[index].title = title
+                        todos[index].description = description
+                        onSave()
+                        dismiss()
                     }
-                }) {
+                    else if !todos.contains(where: { $0.title == title && $0.description == description }) {
+                        // Neues To-Do anlegen
+                        todos.append(ToDo(title: title, description: description))
+                        onSave()
+                        dismiss()
+                    } else {
+                        // Doppeltes To-Do
+                        alertMessage = "To-Do already exists!"
+                        showAlert = true
+                    }
+                } label: {
                     Text("Add")
                         .frame(maxWidth: .infinity)
                         .padding()
@@ -58,23 +80,27 @@ struct ToDoDetailView: View {
                         .cornerRadius(8)
                         .padding(.horizontal)
                 }
-                .alert(isPresented: $showAlert){
-                    Alert(
-                        title: Text("Fehler"),
-                        message: Text(alertMessage),
-                        dismissButton: .cancel(Text("OK"))
-                    )
+                .alert("Fehler", isPresented: $showAlert) {
+                    Button("OK", role: .cancel) {}
+                } message: {
+                    Text(alertMessage)
                 }
             }
-            .navigationTitle("New To-Do")
+            .navigationTitle(editingToDo == nil ? "New To-Do" : "Edit To-Do")
         }
     }
 }
 
 struct ToDoDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        ToDoDetailView(todos: .constant([]), initialTitle: .constant(""), onSave: {})
+        ToDoDetailView(
+            todos: .constant([]),
+            initialTitle: .constant(""),
+            editingToDo: .constant(ToDo(title: "Example", description: "This is a test.")),
+            onSave: {}
+        )
     }
 }
+
 
 
