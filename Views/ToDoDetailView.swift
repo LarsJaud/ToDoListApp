@@ -90,7 +90,13 @@ struct ToDoDetailView: View {
                     Text(alertMessage)
                 }
             }
-            .navigationTitle(editingToDo == nil ? "New To-Do" : "Edit To-Do")
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    Text(editingToDo == nil ? "New To-Do" : "Edit To-Do")
+                        .font(.system(size: 20, weight: .bold))
+                        .foregroundColor(.primary)
+                }
+            }
         }
     }
 }
