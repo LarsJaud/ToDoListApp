@@ -1,3 +1,10 @@
+//
+//  ContentView.swift
+//  ToDoListApp
+//
+//  Created by Lars Jaud on 22.01.25.
+//
+
 import SwiftUI
 
 struct ContentView: View {
@@ -10,63 +17,67 @@ struct ContentView: View {
 
     var body: some View {
         NavigationView {
-            VStack {
-                // list of all to-dos
-                List {
-                    ForEach($todos) { $todo in
-                        ToDoRowView(todo: $todo, onSave: saveToDos)
-                        .swipeActions {
-                            Button(role: .destructive) {
-                                delete(todo)
-                            } label: {
-                                Label("Delete", systemImage: "trash")
-                            }
-                            .tint(.red)
-                            
-                            Button {
-                                edit(todo)
-                            } label: {
-                                Label("Edit", systemImage: "pencil")
-                            }
-                            .tint(.blue)
-                        }
-                    }
-                }
-                
-            }
-            .navigationTitle("")
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .principal){
-                    VStack {
-                        Text("To-Do-List")
-                            .font(.title)
-                            .padding(.top, 40)
-                    }
-                }
-                // Dark-Mode-toggle
-                ToolbarItem(placement: .navigationBarLeading) {
+            VStack(spacing: 0) {
+                // Custom header with title and icons
+                HStack {
+                    // Dark Mode toggle
                     Button {
                         isDarkMode.toggle()
                     } label: {
                         Image(systemName: isDarkMode ? "sun.max.fill" : "moon.fill")
                             .foregroundColor(.mint)
+                            .font(.title2)
                     }
-                }
-                
-                // Button for the new to-do
-                ToolbarItem(placement: .navigationBarTrailing) {
+                    
+                    Spacer() // Space between buttons and title
+                    
+                    // Title
+                    Text("To-Do-List")
+                        .font(.headline)
+                        .foregroundColor(.primary)
+                    
+                    Spacer() // Space for right icon
+                    
+                    // Add button
                     Button {
                         showDetailView.toggle()
                     } label: {
                         Image(systemName: "plus")
                             .foregroundColor(.mint)
+                            .font(.title2)
+                    }
+                }
+                .padding(.horizontal)
+                .padding(.vertical, 10)
+                .background(Color(UIColor.systemBackground))
+                
+                Divider() // Separator below header
+                
+                // List of to-dos
+                List {
+                    ForEach($todos) { $todo in
+                        ToDoRowView(todo: $todo, onSave: saveToDos)
+                            .swipeActions {
+                                Button(role: .destructive) {
+                                    delete(todo)                // delete to-dos
+                                } label: {
+                                    Label("Delete", systemImage: "trash")
+                                }
+                                .tint(.red)
+                                
+                                Button {
+                                    edit(todo)                  // edit to-dos
+                                } label: {
+                                    Label("Edit", systemImage: "pencil")
+                                }
+                                .tint(.blue)
+                            }
                     }
                 }
             }
             .preferredColorScheme(isDarkMode ? .dark : .light)
             .sheet(isPresented: $showDetailView) {
-                // detail/edit view
+                // Detail/edit view
                 ToDoDetailView(
                     todos: $todos,
                     initialTitle: .constant(selectedTodo?.title ?? ""),
@@ -78,7 +89,7 @@ struct ContentView: View {
         }
     }
 
-    /// removes a to-do from the list and saves again
+    /// Deletes a to-do from the list and saves changes
     private func delete(_ todo: ToDo) {
         if let index = todos.firstIndex(of: todo) {
             todos.remove(at: index)
@@ -86,35 +97,32 @@ struct ContentView: View {
         }
     }
 
-    /// open the sheet to edit an existing to-do
+    /// Opens the sheet to edit an existing to-do
     private func edit(_ todo: ToDo) {
         selectedTodo = todo
         showDetailView = true
     }
 
-    /// save the list of to-dos from UserDefaults
+    /// Saves the to-dos to UserDefaults
     private func saveToDos() {
-            do {
-                let data = try JSONEncoder().encode(todos)
-                UserDefaults.standard.set(data, forKey: todosKey)
-                print("To-Dos erfolgreich gespeichert")
-            } catch {
-                print("Error saving To-Dos:", error.localizedDescription)
-            }
+        do {
+            let data = try JSONEncoder().encode(todos)
+            UserDefaults.standard.set(data, forKey: todosKey)
+        } catch {
+            print("Error saving To-Dos:", error.localizedDescription)
         }
+    }
 
-        private func loadToDos() {
-            if let data = UserDefaults.standard.data(forKey: todosKey) {
-                do {
-                    todos = try JSONDecoder().decode([ToDo].self, from: data)
-                    print("To-Dos erfolgreich geladen")
-                } catch {
-                    print("Error loading To-Dos:", error.localizedDescription)
-                }
-            } else {
-                print("Keine Daten für den Schlüssel: \(todosKey) gefunden")
+    /// Loads the to-dos from UserDefaults
+    private func loadToDos() {
+        if let data = UserDefaults.standard.data(forKey: todosKey) {
+            do {
+                todos = try JSONDecoder().decode([ToDo].self, from: data)
+            } catch {
+                print("Error loading To-Dos:", error.localizedDescription)
             }
         }
+    }
 }
 
 struct ContentView_Previews: PreviewProvider {
