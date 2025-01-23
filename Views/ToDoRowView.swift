@@ -10,6 +10,7 @@ import SwiftUI
 struct ToDoRowView: View {
     @Binding var todo: ToDo
     var onSave: () -> Void
+    @Environment(\.colorScheme) var colorScheme
 
     var body: some View {
         HStack(alignment: .top, spacing: 10) {
@@ -22,29 +23,28 @@ struct ToDoRowView: View {
                     .foregroundColor(todo.isCompleted ? .green : .gray)
                     .font(.system(size: 22))
             }
+            .buttonStyle(BorderlessButtonStyle())
 
             // title and description
             VStack(alignment: .leading, spacing: 5) {
                 Text(todo.title)
                     .font(.headline)
-                    .foregroundColor(.black)
-                    .strikethrough(todo.isCompleted, color: .gray)
+                    .foregroundColor(colorScheme == .dark ? .white : .black)
+                    .strikethrough(todo.isCompleted, color: colorScheme == .dark ? .black : .gray)
 
                 Text(todo.description)
                     .font(.subheadline)
-                    .foregroundColor(.gray)
-                    .strikethrough(todo.isCompleted, color: .gray)
+                    .foregroundColor(colorScheme == .dark ? Color(white: 0.97) : .gray)
+                    .strikethrough(todo.isCompleted, color: colorScheme == .dark ? .black : .gray)
             }
-
             Spacer()
         }
-        .padding()
+        .padding(10)
         .background(
             RoundedRectangle(cornerRadius: 10)
-                .fill(Color.white)
-                .shadow(color: Color.black.opacity(0.1), radius: 3, x: 0, y: 2)
+                .fill(colorScheme == .dark ? Color(red: 0.1, green: 0.1, blue: 0.1) : Color(white: 0.97))
+                .shadow(color: Color.black.opacity(0), radius: 3, x: 0, y: 2)
         )
-        .padding(.horizontal)
     }
 }
 

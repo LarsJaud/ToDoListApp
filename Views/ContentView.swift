@@ -94,24 +94,27 @@ struct ContentView: View {
 
     /// save the list of to-dos from UserDefaults
     private func saveToDos() {
-        do {
-            let data = try JSONEncoder().encode(todos)
-            UserDefaults.standard.set(data, forKey: todosKey)
-        } catch {
-            print("Error saving To-Dos:", error.localizedDescription)
-        }
-    }
-
-    /// loads the list of to-dos from UserDefaults
-    private func loadToDos() {
-        if let data = UserDefaults.standard.data(forKey: todosKey) {
             do {
-                todos = try JSONDecoder().decode([ToDo].self, from: data)
+                let data = try JSONEncoder().encode(todos)
+                UserDefaults.standard.set(data, forKey: todosKey)
+                print("To-Dos erfolgreich gespeichert")
             } catch {
-                print("Error loading To-Dos:", error.localizedDescription)
+                print("Error saving To-Dos:", error.localizedDescription)
             }
         }
-    }
+
+        private func loadToDos() {
+            if let data = UserDefaults.standard.data(forKey: todosKey) {
+                do {
+                    todos = try JSONDecoder().decode([ToDo].self, from: data)
+                    print("To-Dos erfolgreich geladen")
+                } catch {
+                    print("Error loading To-Dos:", error.localizedDescription)
+                }
+            } else {
+                print("Keine Daten für den Schlüssel: \(todosKey) gefunden")
+            }
+        }
 }
 
 struct ContentView_Previews: PreviewProvider {
