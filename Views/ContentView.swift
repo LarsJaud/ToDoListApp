@@ -13,14 +13,8 @@ struct ContentView: View {
             VStack {
                 // list of all to-dos
                 List {
-                    ForEach(todos) { todo in
-                        VStack(alignment: .leading) {
-                            Text(todo.title)
-                                .font(.headline)
-                            Text(todo.description)
-                                .font(.subheadline)
-                                .foregroundColor(.gray)
-                        }
+                    ForEach($todos) { $todo in
+                        ToDoRowView(todo: $todo, onSave: saveToDos)
                         .swipeActions {
                             Button(role: .destructive) {
                                 delete(todo)
@@ -38,6 +32,7 @@ struct ContentView: View {
                         }
                     }
                 }
+                
             }
             .navigationTitle("")
             .navigationBarTitleDisplayMode(.inline)
@@ -80,10 +75,6 @@ struct ContentView: View {
                 )
             }
             .onAppear(perform: loadToDos)
-        }
-        // reset the selected to-do after closing the sheet
-        .onChange(of: showDetailView) { oldValue, newValue in
-            if !newValue { selectedTodo = nil }
         }
     }
 

@@ -24,8 +24,12 @@ struct ToDoDetailView: View {
         NavigationView {
             VStack {
                 TextField("Title", text: $title)
-                    .textFieldStyle(.roundedBorder)
+                    .textFieldStyle(PlainTextFieldStyle())
                     .padding()
+                    .background(Color.gray.opacity(0.1))
+                    .cornerRadius(10)
+                    .shadow(radius: 5)
+                    .padding(.horizontal)
                     .onAppear {
                         // edit an existing to-do
                         if let editing = editingToDo {
