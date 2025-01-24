@@ -73,6 +73,9 @@ struct ContentView: View {
                                 .tint(.blue)
                             }
                     }
+                    .onMove { indices, newOffset in
+                        todos.move(fromOffsets: indices, toOffset: newOffset)
+                    }
                 }
             }
             .preferredColorScheme(isDarkMode ? .dark : .light)
