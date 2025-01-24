@@ -39,17 +39,17 @@ struct ToDoDetailView: View {
                                 description = editing.description
                             }
                         } else {
-                            // new to-do -> title from initialTitle
-                            title = initialTitle
+                            // new to-do -> reset fields
+                            title = ""
+                            description = ""
                         }
                     }
 
                 TextEditor(text: $description)
-                    .frame(height: 150)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 8)
-                            .stroke(Color.gray, lineWidth: 1)
-                    )
+                    .padding()
+                    .background(Color.gray.opacity(0.1))
+                    .cornerRadius(10)
+                    .shadow(radius: 5)
                     .padding()
 
                 Spacer()
