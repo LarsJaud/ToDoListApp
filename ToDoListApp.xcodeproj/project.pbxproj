@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CBC28D652D43A033004E8E37 /* ToDoDetailViewReadOnly.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBC28D642D43A029004E8E37 /* ToDoDetailViewReadOnly.swift */; };
 		CBCA359A2D40F37D00845FC2 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBCA35992D40F37D00845FC2 /* ContentView.swift */; };
 		CBCA35A92D4115BB00845FC2 /* ToDoDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBCA35A82D4115AC00845FC2 /* ToDoDetailView.swift */; };
 		CBCA35AA2D411DC100845FC2 /* ToDo.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBCA35A72D4113FE00845FC2 /* ToDo.swift */; };
@@ -14,6 +15,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		CBC28D642D43A029004E8E37 /* ToDoDetailViewReadOnly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoDetailViewReadOnly.swift; sourceTree = "<group>"; };
 		CBCA35942D40F37D00845FC2 /* ToDoListApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToDoListApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CBCA35992D40F37D00845FC2 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		CBCA35A72D4113FE00845FC2 /* ToDo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDo.swift; sourceTree = "<group>"; usesTabs = 0; };
@@ -61,6 +63,7 @@
 		CBCA35A52D41137C00845FC2 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				CBC28D642D43A029004E8E37 /* ToDoDetailViewReadOnly.swift */,
 				CBDCAD6A2D425606000679B1 /* ToDoRowView.swift */,
 				CBCA35A82D4115AC00845FC2 /* ToDoDetailView.swift */,
 				CBCA35992D40F37D00845FC2 /* ContentView.swift */,
@@ -154,6 +157,7 @@
 				CBCA35A92D4115BB00845FC2 /* ToDoDetailView.swift in Sources */,
 				CBDCAD6B2D42560D000679B1 /* ToDoRowView.swift in Sources */,
 				CBCA35AA2D411DC100845FC2 /* ToDo.swift in Sources */,
+				CBC28D652D43A033004E8E37 /* ToDoDetailViewReadOnly.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
