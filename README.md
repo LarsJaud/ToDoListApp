@@ -20,11 +20,11 @@ is a simple and efficient iOS app for managing your daily tasks.
 
 | Feature       | Screenshot                           |
 |---------------|--------------------------------------|
-| Light Mode    | <img src="ToDoListApp/Screenshots/light.png" alt="Light Mode Screenshot" width="225"> |
-| Dark Mode     | <img src="ToDoListApp/Screenshots/dark.png" alt="Dark Mode Screenshot" width="225">   |
-| Edit/Delete   | <img src="ToDoListApp/Screenshots/editDelete.png" alt="Edit/Delete Screenshot" width="225"> |
-| Add To-Do     | <img src="ToDoListApp/Screenshots/addToDo.png" alt="Add To-Do Screenshot" width="225"> |
-| Read Only     | <img src="ToDoListApp/Screenshots/Readonly.png" alt="Add To-Do Screenshot" width="225"> 
+| Light Mode    | <img src="ToDoListApp/Screenshots/light.png" alt="Light Mode Screenshot" width="275"> |
+| Dark Mode     | <img src="ToDoListApp/Screenshots/dark.png" alt="Dark Mode Screenshot" width="275">   |
+| Edit/Delete   | <img src="ToDoListApp/Screenshots/editDelete.png" alt="Edit/Delete Screenshot" width="275"> |
+| Add To-Do     | <img src="ToDoListApp/Screenshots/addToDo.png" alt="Add To-Do Screenshot" width="275"> |
+| Read Only     | <img src="ToDoListApp/Screenshots/Readonly.png" alt="Add To-Do Screenshot" width="275"> 
 
 
 ---
