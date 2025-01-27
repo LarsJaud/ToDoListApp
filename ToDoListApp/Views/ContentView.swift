@@ -13,7 +13,7 @@ struct ContentView: View {
     @State private var showDetailView = false
     @State private var selectedTodo: ToDo? = nil
     
-    private let todosKey = "com.larsjaud.todos"
+    private let todosKey = "com.testkey.todos"
 
     var body: some View {
         NavigationView {

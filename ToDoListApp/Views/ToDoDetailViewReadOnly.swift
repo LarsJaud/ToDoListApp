@@ -34,6 +34,6 @@ struct ToDoDetailViewReadOnly: View {
 
 struct ToDoDetailViewReadonly_Previews: PreviewProvider {
     static var previews: some View {
-        ToDoDetailViewReadOnly(todo: ToDo(title: "Sample Title", description: "This is a sample description that is long enough to demonstrate the purpose of this readonly detail view."))
+        ToDoDetailViewReadOnly(todo: ToDo(title: "", description: ""))
     }
 }
