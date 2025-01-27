@@ -21,9 +21,9 @@ ToDoListApp is a simple and efficient iOS app for managing your daily tasks.
 | Feature       | Screenshot                           |
 |---------------|--------------------------------------|
 | Light Mode    | ![Light Mode Screenshot](ToDoListApp/Screenshots/light.png) |
-| Dark Mode     | ![Dark Mode Screenshot](Screenshots/dark.png)   |
-| Edit/Delete   | ![Edit/Delete Screenshot](Screenshots/editDelete.png) |
-| Add To-Do     | ![Add To-Do Screenshot](Screenshots/addToDo.png) |
+| Dark Mode     | ![Dark Mode Screenshot](ToDoListApp/Screenshots/dark.png)   |
+| Edit/Delete   | ![Edit/Delete Screenshot](ToDoListApp/Screenshots/editDelete.png) |
+| Add To-Do     | ![Add To-Do Screenshot](ToDoListApp/Screenshots/addToDo.png) |
 
 
 ---
