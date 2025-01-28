@@ -1,7 +1,7 @@
 # ToDoListApp
 
 <p align="center">
-  <img src="ToDoListApp/Assets/AppIcon.png" alt="App Icon" width="150">
+  <img src="ToDoListApp/Screenshots/icon_1024" alt="App Icon" width="150">
 </p>
 
 A simple and efficient iOS app to manage your daily tasks with ease. Whether you're in light or dark mode, ToDoListApp helps you stay organized!
