@@ -1,4 +1,6 @@
+<p align="center">
 # ToDoListApp
+</p>
 
 <p align="center">
   <img src="ToDoListApp/Screenshots/icon_1024.png" alt="AppIcon" width="150">
